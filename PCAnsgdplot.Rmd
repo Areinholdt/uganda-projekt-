@@ -1,0 +1,81 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(scales)
+cov_mat <- read.csv("pcansgd_analysis1.cov", sep = " ", header = F)
+
+ev <- eigen(cov_mat)
+
+dat<-as.data.frame(ev$vectors)
+
+sum_var=sum(ev$values)
+
+master <- read.csv("warthog_data.xlsx - Sheet1.csv")
+
+master[56,1] <- "CWarxxx00206"
+masterSorted <- master[order(master$Sample_ID),]
+dat$Location=as.character(masterSorted[, 8])
+#unique(dat$Location)
+
+varPc1=format(round(ev$values[1]/sum_var*100, 2), nsmall = 2)
+varPc2=format(round(ev$values[2]/sum_var*100, 2), nsmall = 2)
+varPc3=format(round(ev$values[3]/sum_var*100, 2), nsmall = 2)
+varPc4=format(round(ev$values[4]/sum_var*100, 2), nsmall = 2)
+
+dat[,1:4]
+
+
+colvec <- 1:56
+
+colvec[dat$Location == "Kenya"] <- "#B4C52B"
+colvec[dat$Location == "Tanzania"] <- "#009E35"
+colvec[dat$Location == "Zoo"] <- "#1CCBA7"
+colvec[dat$Location == "Zambia"] <- "#1F9EE4"
+colvec[dat$Location == "Ghana"] <- "#EF4185"
+colvec[dat$Location == "Namibia"] <- "#E4950F"
+colvec[dat$Location == "Uganda"] <- "#12044a"
+colvec[dat$Location == "Zimbabwe"] <- "#59615c"
+
+colvec <- alpha(colvec, 0.8)
+
+plot(dat[,1], dat[,2], alpha = 2, col = colvec)
+
+pairs(dat[,1:4],labels=c(paste0("PC1\n", varPc1, "%"), paste0("PC2\n", varPc2, "%"), paste0("PC3\n", varPc3, "%"), paste0("PC4\n", varPc4, "%")), pch=19, upper.panel=NULL, col = colvec)
+
+legend("topright", bty='n', xpd=NA, c("Kenya", "Tanzania", "Zoo", "Zambia", "Ghana", "Namibia", "Uganda", "Zimbabwe"), pch=19, col=c("#B4C52B", "#009E35", "#1CCBA7", "#1F9EE4", "#EF4185", "#E4950F", "#12044a", "#59615c"))
+
+#plot(dat[,1], dat[,2])
+```
+
+
+```{r}
+#library(scatterplot3d)
+#colors <- as.numeric(colvec)
+#scatterplot3d(dat[,1:3],
+#              main="3D Scatter Plot",
+#              xlab = "PC1",
+#              ylab = "PC2",
+#              zlab = "PC3",
+#              col = colvec)
+```
+```{r}
+library(plotly)
+
+#mtcars$am[which(mtcars$am == 0)] <- 'Automatic'
+#mtcars$am[which(mtcars$am == 1)] <- 'Manual'
+#mtcars$am <- as.factor(mtcars$am)
+
+fig <- plot_ly(dat, x = ~V1, y = ~V2, z = ~V3, color = ~Location, colors = c("#B4C52B", "#009E35", "#1CCBA7", "#1F9EE4", "#EF4185", "#E4950F", "#12044a", "#59615c"), alpha = .90)
+fig <- fig %>% add_markers()
+fig <- fig %>% layout(scene = list(xaxis = list(title = 'PC1'),
+                     yaxis = list(title = 'PC2'),
+                     zaxis = list(title = 'PC3')))
+
+fig
+```
+
+
+
