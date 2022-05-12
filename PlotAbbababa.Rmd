@@ -1,0 +1,21 @@
+---
+title: "PlotAbbababa"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+abbababa <- read.csv("result.Observed.txt", header = T, sep = "\t")
+rank <- c("ghana" = 6, "kenya" = 5, "namibia" = 1, "tanzania" = 3, "uganda" = 4, "zambia" = 2, "zimbabwe" = 1)
+
+abbababa <- mutate(abbababa, H1r = recode(H1, "ghana" = 6, "kenya" = 5, "namibia" = 1, "tanzania" = 3, "uganda" = 4, "zambia" = 2, "zimbabwe" = 1), 
+               H2r = recode(H2, "ghana" = 6, "kenya" = 5, "namibia" = 1, "tanzania" = 3, "uganda" = 4, "zambia" = 2, "zimbabwe" = 1), 
+               H3r = recode(H3, "ghana" = 6, "kenya" = 5, "namibia" = 1, "tanzania" = 3, "uganda" = 4, "zambia" = 2, "zimbabwe" = 1)
+               )
+abbababa <- filter(abbababa, H1r < H3r & H2r < H3r)
+```
+

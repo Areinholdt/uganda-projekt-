@@ -1,0 +1,22 @@
+---
+title: "PlotROH"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rohan <- read.csv("all_summary.result",sep = ",", header = T)
+rohan$pop <- substring(rohan$Name, 5, 7)
+
+ggplot(rohan, aes(pop, Segments_in_ROH, color = pop)) +
+  geom_boxplot() +
+  theme_classic()
+
+ggplot(rohan, aes(Name, Segments_in_ROH, color = pop, fill = pop)) + 
+  geom_bar(stat="identity") +
+  theme_classic()
+```
+

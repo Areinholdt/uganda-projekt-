@@ -1,0 +1,12 @@
+---
+title: "test"
+output: html_document
+---
+
+```{r}
+list <- read.csv("subsample_test.list", header = F, sep = "\t")
+list$len <- list$V3 - list$V2 +1
+sum(list$len)
+
+```
+

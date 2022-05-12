@@ -1,0 +1,22 @@
+---
+title: "PlotHet"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+hets <- read.csv("AllHet_std.list", header = F)
+hets$V1 <- substring(hets$V1, 4)
+hets$V3 <- substring(hets$V2, 5, 7)
+hets$V1 <- as.numeric(hets$V1)
+hets$V3 <- factor(hets$V3, levels = c("Gha", "Uga", "Ugw", "Ken", "Tan", "Zam", "Zim", "Nam")) #order from phylogeographical history
+ggplot(hets, aes(V2, V1, fill = V3)) + 
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = -50, hjust = 0.1, vjust = 0, size = 10))
+
+ggplot(hets, aes(V3, V1, color = V3)) +
+  geom_boxplot() +
+  scale_y_continuous(limits = c(0, 0.004)) +
+  theme_classic()
+```
+

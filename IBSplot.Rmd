@@ -1,0 +1,34 @@
+---
+title: "IBSplot"
+output: html_document
+---
+
+```{r}
+## heatmap / clustering / trees
+library(ape)
+library(dendextend)
+name <- "ibs_std.ibsMat" # or covMat
+m <- as.matrix(read.table(name))
+
+master <- read.csv("warthog_data_std.csv")
+rownames(m) <- as.character(master[, 1])
+colnames(m) <- as.character(master[, 1])
+loc <- substring(colnames(m), 5, 7)
+colors <- c("Gha" = "#B4C52B", "Ken" = "#009E35",
+"Nam" = "#1CCBA7", "Tan" = "#1F9EE4",
+"Uga" = "#EF4185","Zam" = "#E4950F","Zim" = "#FF00FF")
+#heat map
+#heatmap(m)
+#neighbour joining
+out <- c("CWarGha00100","CWarGha00091", "CWarGha00098", "CWarGha00064")
+plot.phylo(root(nj(m), outgroup = out), tip.color = colors[loc])
+ape::add.scale.bar()
+
+dend <- as.dendrogram(hclust(dist(m), "ave"))
+loc2 <- substring(labels(dend), 5, 7)
+labels_colors(dend) <- colors[loc2]
+plot(dend)
+
+
+```
+
