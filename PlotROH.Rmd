@@ -5,18 +5,90 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 ```{r}
 rohan <- read.csv("all_summary.result",sep = ",", header = T)
+rohan[rohan == "CWarUga00058"] <- "CWarUgw00058"
+rohan[rohan == "CWarUga00059"] <- "CWarUgw00059"
+rohan[rohan == "CWarKen00066"] <- "CWarDes00066"
+rohan[rohan == "CWarKen00114"] <- "CWarDes00114"
 rohan$pop <- substring(rohan$Name, 5, 7)
 
-ggplot(rohan, aes(pop, Segments_in_ROH, color = pop)) +
+order <- c("Nig","Des", "xxx" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
+ggplot(rohan, aes(x = factor(pop, levels = order), Segments_in_ROH, color = pop)) +
   geom_boxplot() +
   theme_classic()
 
-ggplot(rohan, aes(Name, Segments_in_ROH, color = pop, fill = pop)) + 
-  geom_bar(stat="identity") +
+#ggplot(rohan, aes(Name, Segments_in_ROH, color = pop, fill = pop)) + 
+#  geom_bar(stat="identity") +
+#  theme(axis.text.x = element_text(angle = -50, hjust = 0.1, vjust = 0, size = 10))
+```
+
+```{r}
+rohan2 <- read.csv("all_summary_2.result",sep = ",", header = T)
+rohan2[rohan2 == "CWarUga00058"] <- "CWarUgw00058"
+rohan2[rohan2 == "CWarUga00059"] <- "CWarUgw00059"
+rohan2[rohan2 == "CWarKen00066"] <- "CWarDes00066"
+rohan2[rohan2 == "CWarKen00114"] <- "CWarDes00114"
+rohan2$pop <- substring(rohan2$Name, 5, 7)
+
+order <- c("Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
+ggplot(rohan2, aes(x = factor(pop, levels = order), Segments_in_ROH, color = pop)) +
+  geom_boxplot() +
+  theme_classic()
+
+#ggplot(rohan2, aes(Name, Segments_in_ROH, color = pop, fill = pop)) + 
+#  geom_bar(stat="identity") +
+#  theme_classic()
+```
+
+```{r}
+rohan3 <- read.csv("all_summary_3.result",sep = ",", header = T)
+rohan3[rohan3 == "CWarUga00058"] <- "CWarUgw00058"
+rohan3[rohan3 == "CWarUga00059"] <- "CWarUgw00059"
+rohan3[rohan3 == "CWarKen00066"] <- "CWarDes00066"
+rohan3[rohan3 == "CWarKen00114"] <- "CWarDes00114"
+rohan3$pop <- substring(rohan3$Name, 5, 7)
+
+order <- c("Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
+ggplot(rohan3, aes(x = factor(pop, levels = order), Segments_in_ROH, color = pop)) +
+  geom_boxplot() +
+  theme_classic()
+
+ggplot(rohan3, aes(x = factor(pop, levels = order), Avg_length_of_roh, color = pop)) +
+  geom_boxplot() +
+  theme_classic()
+```
+
+
+```{r}
+rohan4 <- read.csv("all_summary_4.result",sep = ",", header = T)
+rohan4[rohan4 == "CWarGha00090"] <- "CWarRmv00090"
+rohan4[rohan4 == "CWarUga00058"] <- "CWarUgw00058"
+rohan4[rohan4 == "CWarUga00059"] <- "CWarUgw00059"
+rohan4[rohan4 == "CWarKen00066"] <- "CWarDes00066"
+rohan4[rohan4 == "CWarKen00108"] <- "CWarRmv00108"
+rohan4[rohan4 == "CWarTan00082"] <- "CWarRmv00082"
+rohan4[rohan4 == "CWarUga00050"] <- "CWarRmv00050"
+rohan4[rohan4 == "CWarUga00051"] <- "CWarRmv00051"
+rohan4[rohan4 == "CWarUga00054"] <- "CWarRmv00054"
+rohan4[rohan4 == "CWarKen00114"] <- "CWarDes00114"
+rohan4[rohan4 == "CWarxxx00206"] <- "CWarZoo00206"
+rohan4$pop <- substring(rohan4$Name, 5, 7)
+
+order <- c("Rmv", "Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
+ggplot(rohan4, aes(x = factor(pop, levels = order), Segments_in_ROH, color = pop)) +
+  geom_boxplot() +
+  theme_classic()
+
+ggplot(rohan4, aes(x = factor(pop, levels = order), Avg_length_of_roh, color = pop)) +
+  geom_boxplot() +
+  theme_classic()
+
+ggplot(rohan4, aes(x = factor(pop, levels = order), Genome.wide_theta_outside_ROH, color = pop)) +
+  geom_boxplot() +
   theme_classic()
 ```
 

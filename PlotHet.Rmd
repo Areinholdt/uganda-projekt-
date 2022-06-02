@@ -6,10 +6,23 @@ output: html_document
 ```{r}
 library(tidyverse)
 hets <- read.csv("AllHet_std.list", header = F)
+hets[hets == "CWarGha00090.het"] <- "CWarRmv00090"
+hets[hets == "CWarUga00058.het"] <- "CWarUgw00058"
+hets[hets == "CWarUga00059.het"] <- "CWarUgw00059"
+hets[hets == "CWarKen00066.het"] <- "CWarDes00066"
+hets[hets == "CWarKen00108.het"] <- "CWarRmv00108"
+hets[hets == "CWarTan00082.het"] <- "CWarRmv00082"
+hets[hets == "CWarUga00050.het"] <- "CWarRmv00050"
+hets[hets == "CWarUga00051.het"] <- "CWarRmv00051"
+hets[hets == "CWarUga00054.het"] <- "CWarRmv00054"
+hets[hets == "CWarKen00114.het"] <- "CWarDes00114"
+hets[hets == "CWarKen00114.het"] <- "CWarDes00114"
+hets[hets == "CWarxxx00206.het"] <- "CWarZoo00206"
+
 hets$V1 <- substring(hets$V1, 4)
 hets$V3 <- substring(hets$V2, 5, 7)
 hets$V1 <- as.numeric(hets$V1)
-hets$V3 <- factor(hets$V3, levels = c("Gha", "Uga", "Ugw", "Ken", "Tan", "Zam", "Zim", "Nam")) #order from phylogeographical history
+hets$V3 <- factor(hets$V3, levels = c(c("Rmv", "Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam"))) #order from phylogeographical history
 ggplot(hets, aes(V2, V1, fill = V3)) + 
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = -50, hjust = 0.1, vjust = 0, size = 10))

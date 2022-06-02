@@ -1,0 +1,26 @@
+---
+title: "plotSFS"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+uganda <- scan("uganda.sfs")
+barplot(uganda[2:21])
+```
+```{r}
+ghana <- scan("ghana.sfs")
+barplot(ghana[2:9])
+```
+
+```{r}
+zimbabwe <- scan("zimbabwe.sfs")
+barplot(zimbabwe[2:17])
+```
+```{r}
+kenya <- scan("kenya.sfs")
+barplot(kenya[2:7])
+```
