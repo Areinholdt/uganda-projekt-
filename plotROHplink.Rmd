@@ -1,0 +1,50 @@
+---
+title: "plotROHplink"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+roh <- read.table("plink.hom", header = T)
+
+order <- c("Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
+roh[roh == "CWarUga00058"] <- "CWarUgw00058"
+roh[roh == "CWarUga00059"] <- "CWarUgw00059"
+roh$pop <- substring(roh$IID, 5, 7)
+roh$KB <- sapply(roh$KB, as.numeric)
+
+ggplot(roh, aes(KB, color = IID)) +
+  geom_density() +
+  facet_wrap(~ pop)
+
+ggplot(roh, aes(KB, fill = pop)) +
+  geom_histogram(bins = 100) +
+  facet_wrap(~ IID)
+
+ggplot(roh, aes(KB, fill = pop)) +
+  geom_histogram(bins = 100) +
+  scale_y_continuous(trans='log1p') +
+  facet_wrap(~ IID)
+
+ggplot(roh, aes(x = factor(pop, levels = order), KB, fill = pop)) +
+  geom_boxplot() +
+  scale_y_continuous(trans='log1p') +
+  theme_classic()
+
+ggplot(roh, aes(x = factor(pop, levels = order), KB, fill = pop)) +
+  geom_violin() +
+  scale_y_continuous(trans='log1p') +
+  theme_classic()
+
+filter(roh, IID == "CWarUga00046") %>% ggplot(aes(KB, fill = pop)) +
+  scale_y_continuous(trans='log1p') +
+  geom_histogram(bins = 100)
+
+filter(roh, KB > 500) %>% ggplot(aes(KB, fill = pop)) +
+  geom_histogram(bins = 100) +
+  facet_wrap(~ IID)
+```
+
