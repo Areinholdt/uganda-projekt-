@@ -8,8 +8,18 @@ library(ggrepel)
 fstlist <- read.csv("fst.list", header = F, sep = "\t")
 ggplot(fstlist, aes(V1, V2, fill= V3)) + 
   scale_fill_gradient2() +
-  geom_tile() +
-  geom_text(aes(label = V3), color = "white", size = 4)
+  geom_tile()+
+  geom_text(aes(label = V3), color = "white", size = 3)+
+  ggtitle("Pairwise-FST")+
+  xlab('Population')+
+  ylab('Population')+
+  theme_classic()+
+  theme_update(plot.title = element_text(hjust = 0.5))+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(legend.title=element_blank())
+
+
+
 ```
 ```{r}
 physdist <- read.csv("PhysDist.txt", header = F, sep = "\t")
@@ -18,8 +28,16 @@ fstlist$Name <- str_c(fstlist$V1, fstlist$V2, sep = " & ")
 fstlist$Uga <- fstlist$V1 == "uganda" | fstlist$V2 == "uganda"
 ggplot(data = fstlist, aes(V3, V4, label = Name, color = Uga)) + #color = V1 == "uganda" | V2 == "uganda"
   geom_point() +
-#  geom_text_repel() +
   geom_smooth(method = lm,  color = "black") +
+  ggtitle('Isolation by distance')+
+  #theme_update(plot.title = element_text(hjust = 0.5))+
+  xlab('Pairwise-FST estimate')+
+  ylab('Distance in Km')+
+  labs(colour = "Uganda in combination")+
+  theme_update(plot.title = element_text(hjust = 0.5))+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  theme(legend.title=element_blank())+
   theme_bw()
+
 ```
 
