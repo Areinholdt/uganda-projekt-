@@ -29,7 +29,12 @@ ggplot(hets, aes(V2, V1, fill = V3)) +
 
 ggplot(hets, aes(V3, V1, color = V3)) +
   geom_boxplot() +
-  scale_y_continuous(limits = c(0, 0.004)) +
-  theme_classic()
+  ggtitle("Estimated heterozygosity for each population") +
+  xlab("Populations") +
+  ylab("Heterozygosity") +
+#  scale_y_continuous(limits = c(0, 0.004)) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  labs(color = " ")
 ```
 

@@ -14,20 +14,20 @@ master <- read.csv("warthog_data_std.csv")
 rownames(m) <- as.character(master[, 1])
 colnames(m) <- as.character(master[, 1])
 loc <- substring(colnames(m), 5, 7)
-colors <- c("Gha" = "#B4C52B", "Ken" = "#009E35",
-"Nam" = "#1CCBA7", "Tan" = "#1F9EE4",
-"Uga" = "#EF4185","Zam" = "#E4950F","Zim" = "#FF00FF")
+colors <- c("Gha" = "#F8766D", "Ken" = "#CD9600",
+"Nam" = "#7CAE00", "Tan" = "#00BE67",
+"Uga" = "#00BFC4","Zam" = "#C77CFF","Zim" = "#FF61CC")
 #heat map
 #heatmap(m)
 #neighbour joining
 out <- c("CWarGha00100","CWarGha00091", "CWarGha00098", "CWarGha00064")
-plot.phylo(root(nj(m), outgroup = out), tip.color = colors[loc])
+plot.phylo(root(nj(m), outgroup = out), tip.color = colors[loc], cex = 0.8)
 ape::add.scale.bar()
 
 dend <- as.dendrogram(hclust(dist(m), "ave"))
 loc2 <- substring(labels(dend), 5, 7)
 labels_colors(dend) <- colors[loc2]
-plot(dend)
+plot(rotate(dend))
 
 
 ```

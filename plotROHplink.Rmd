@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-roh <- read.table("plink.hom", header = T)
+roh <- read.table("plink5.hom", header = T)
 
 order <- c("Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
 roh[roh == "CWarUga00058"] <- "CWarUgw00058"
@@ -27,6 +27,9 @@ ggplot(roh, aes(KB, fill = pop)) +
 ggplot(roh, aes(KB, fill = pop)) +
   geom_histogram(bins = 100) +
   scale_y_continuous(trans='log1p') +
+  ggtitle("Distributions of ROH's from high coverage individuals") +
+  xlab("Counts") +
+  ylab("Length of ROH's in Kb") +
   facet_wrap(~ IID)
 
 ggplot(roh, aes(x = factor(pop, levels = order), KB, fill = pop)) +

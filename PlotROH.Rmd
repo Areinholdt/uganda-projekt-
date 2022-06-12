@@ -6,6 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(gridExtra)
 ```
 
 ```{r}
@@ -78,17 +79,38 @@ rohan4[rohan4 == "CWarKen00114"] <- "CWarDes00114"
 rohan4[rohan4 == "CWarxxx00206"] <- "CWarZoo00206"
 rohan4$pop <- substring(rohan4$Name, 5, 7)
 
-order <- c("Rmv", "Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
-ggplot(rohan4, aes(x = factor(pop, levels = order), Segments_in_ROH, color = pop)) +
+order <- c("Rmv", "Nig", "Zoo","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam")
+
+p1 <-filter(rohan4, !pop %in% c("Rmv","Nig","Zoo","Des")) %>%
+  ggplot(aes(x = factor(pop, levels = order), Segments_in_ROH, color = pop)) +
   geom_boxplot() +
+  geom_jitter() +
+  ggtitle("Percentage of genome in ROH's over 5Mb") +
+  xlab("Population") +
+  ylab("Percentage of genome in ROH") +
+  theme_classic() +
+  theme(legend.position="none")
+
+p2 <- filter(rohan4, !pop %in% c("Rmv","Nig","Zoo","Des")) %>%
+  ggplot(aes(x = factor(pop, levels = order), Genome.wide_theta_outside_ROH, color = pop)) +
+  geom_boxplot() +
+  geom_jitter() +
+  ggtitle("Estimate of theta outside ROH's over 5Mb") +
+  xlab("Population") +
+  ylab("Estimate of Wattersons theta") +
   theme_classic()
+
+grid.arrange(p1, p2, ncol=2)
 
 ggplot(rohan4, aes(x = factor(pop, levels = order), Avg_length_of_roh, color = pop)) +
   geom_boxplot() +
   theme_classic()
 
-ggplot(rohan4, aes(x = factor(pop, levels = order), Genome.wide_theta_outside_ROH, color = pop)) +
-  geom_boxplot() +
-  theme_classic()
+rohan4$pop <- factor(rohan4$pop, levels = order)
+ggplot(rohan4, aes(Name, Segments_in_ROH, fill = pop, color = pop)) +
+  geom_col() +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = -50, hjust = 0.1, vjust = 0, size = 10))
+
 ```
 

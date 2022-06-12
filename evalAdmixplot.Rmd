@@ -12,7 +12,7 @@ pop <- data.frame(master[,8], master[,1])
 
 # order according to population and plot the NGSadmix reults
 ord<-orderInds(pop = as.vector(pop[,1]), q = q)
-barplot(t(q)[,ord],col=2:10,space=0,border=NA,xlab="Individuals",ylab="Demo2 Admixture proportions for K=3")
+barplot(t(q)[,ord],col=2:10,space=0,border=NA,xlab="Individuals",ylab="Demo2 Admixture proportions for K = 3")
 text(tapply(1:nrow(pop),pop[ord,1],mean),-0.05,unique(pop[ord,1]),xpd=T)
 abline(v=cumsum(sapply(unique(pop[ord,1]),function(x){sum(pop[ord,1]==x)})),col=1,lwd=1.2)
 
@@ -20,7 +20,7 @@ r<-read.table("evalNGSadmix_std.7.corres")
 
 # Plot correlation of residuals
 
-plotCorRes(cor_mat = r, pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1)
+plotCorRes(cor_mat = r,title="Correlation of residuals for K = 7" , pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1, rotatelabpop = 90, cex.lab.2=1, cex.lab=1)
 ```
 
 ```{r}
@@ -30,7 +30,7 @@ pop <- data.frame(master[,8], master[,1])
 
 # order according to population and plot the NGSadmix reults
 ord<-orderInds(pop = as.vector(pop[,1]), q = q)
-barplot(t(q)[,ord],col=2:10,space=0,border=NA, xlab="Individuals",ylab="Demo2 Admixture proportions for K=3")
+barplot(t(q)[,ord],col=2:10,space=0,border=NA, xlab="Individuals",ylab="Demo2 Admixture proportions for K=6")
 text(tapply(1:nrow(pop),pop[ord,1],mean),-0.05,unique(pop[ord,1]),xpd=T)
 abline(v=cumsum(sapply(unique(pop[ord,1]),function(x){sum(pop[ord,1]==x)})),col=1,lwd=1.2)
 
@@ -38,7 +38,7 @@ r<-read.table("evalNGSadmix_std.6.corres")
 
 # Plot correlation of residuals
 
-plotCorRes(cor_mat = r, pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1)
+plotCorRes(cor_mat = r,title="Correlation of residuals for K = 6" , pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1, rotatelabpop = 90, cex.lab.2=1, cex.lab=1)
 ```
 
 ```{r}
@@ -48,7 +48,7 @@ pop <- data.frame(master[,8], master[,1])
 
 # order according to population and plot the NGSadmix reults
 ord<-orderInds(pop = as.vector(pop[,1]), q = q)
-barplot(t(q)[,ord],col=2:10,space=0,border=NA,xlab="Individuals",ylab="Demo2 Admixture proportions for K=3")
+barplot(t(q)[,ord],col=2:10,space=0,border=NA,xlab="Individuals",ylab="Demo2 Admixture proportions for K=5")
 text(tapply(1:nrow(pop),pop[ord,1],mean),-0.05,unique(pop[ord,1]),xpd=T)
 abline(v=cumsum(sapply(unique(pop[ord,1]),function(x){sum(pop[ord,1]==x)})),col=1,lwd=1.2)
 
@@ -56,7 +56,7 @@ r<-read.table("evalNGSadmix_std.5.corres")
 
 # Plot correlation of residuals
 
-plotCorRes(cor_mat = r, pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1)
+plotCorRes(cor_mat = r,title="Correlation of residuals for K = 5" , pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1, rotatelabpop = 90, cex.lab.2=1, cex.lab=1)
 ```
 
 ```{r}
@@ -66,7 +66,7 @@ pop <- data.frame(master[,8], master[,1])
 
 # order according to population and plot the NGSadmix reults
 ord<-orderInds(pop = as.vector(pop[,1]), q = q)
-barplot(t(q)[,ord],col=2:10,space=0,border=NA,xlab="Individuals",ylab="Demo2 Admixture proportions for K=3")
+barplot(t(q)[,ord],col=2:10,space=0,border=NA,xlab="Individuals",ylab="Demo2 Admixture proportions for K=4")
 text(tapply(1:nrow(pop),pop[ord,1],mean),-0.05,unique(pop[ord,1]),xpd=T)
 abline(v=cumsum(sapply(unique(pop[ord,1]),function(x){sum(pop[ord,1]==x)})),col=1,lwd=1.2)
 
@@ -74,23 +74,5 @@ r<-read.table("evalNGSadmix_std.4.corres")
 
 # Plot correlation of residuals
 
-plotCorRes(cor_mat = r, pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1)
-```
-
-```{r}
-q <- read.table("admixResultWarthog_std.4.3")
-master <- read.csv("warthog_data_std.csv")
-pop <- data.frame(master[,8], master[,1])
-
-# order according to population and plot the NGSadmix reults
-ord<-orderInds(pop = as.vector(pop[,1]), q = q)
-barplot(t(q)[,ord],col=2:10,space=0,border=NA,xlab="Individuals",ylab="Demo2 Admixture proportions for K=3")
-text(tapply(1:nrow(pop),pop[ord,1],mean),-0.05,unique(pop[ord,1]),xpd=T)
-abline(v=cumsum(sapply(unique(pop[ord,1]),function(x){sum(pop[ord,1]==x)})),col=1,lwd=1.2)
-
-r<-read.table("evalNGSadmix_std.4.corres")
-
-# Plot correlation of residuals
-
-plotCorRes(cor_mat = r, pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1)
+plotCorRes(cor_mat = r,title="Correlation of residuals for K = 4" , pop = as.vector(pop[,1]), ord = ord, max_z=0.1, min_z=-0.1, rotatelabpop = 90, cex.lab.2=1, cex.lab=1)
 ```

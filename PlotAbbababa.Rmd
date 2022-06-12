@@ -6,6 +6,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(gridExtra)
 ```
 
 ```{r}
@@ -17,5 +18,38 @@ abbababa <- mutate(abbababa, H1r = recode(H1, "ghana" = 6, "kenya" = 5, "namibia
                H3r = recode(H3, "ghana" = 6, "kenya" = 5, "namibia" = 1, "tanzania" = 3, "uganda" = 4, "zambia" = 2, "zimbabwe" = 1)
                )
 abbababa <- filter(abbababa, H1r < H3r & H2r < H3r)
+
+p1 <- filter(abbababa, H3 == "uganda") %>%
+  arrange(desc(D)) %>%
+  unite(H1H2, H1:H2,remove = F) %>%
+  mutate(Zcutoff = ifelse( abs(Z) > 3,"Significant" ,"Not significant")) %>%
+  ggplot(aes(D, H1H2, color = Zcutoff)) +
+  geom_point() +
+  geom_vline(xintercept = 0, linetype="dotted")
+#  theme(legend.position="none")
+
+p2 <- filter(abbababa, H3 == "ghana") %>%
+  arrange(desc(D)) %>%
+  unite(H1H2, H1:H2,remove = F) %>%
+  mutate(Zcutoff = ifelse( abs(Z) > 3,"Significant" ,"Not significant")) %>%
+  ggplot(aes(D, H1H2, color = Zcutoff)) +
+  geom_point() +
+  geom_vline(xintercept = 0, linetype="dotted") +
+  ggtitle("test")
+
+grid.arrange(p1, p2, ncol = 2)
+
+filter(abbababa, H3 == "ghana" | H3 == "uganda") %>%
+  arrange(desc(D)) %>%
+  unite(H1H2, H1:H2,remove = F) %>%
+  mutate(Z_cutoff = ifelse( abs(Z) > 3,"Significant" ,"Not significant")) %>%
+  ggplot(aes(D, H1H2, color = Z_cutoff)) +
+  geom_point(cex = 2) +
+  geom_vline(xintercept = 0, linetype="dotted") +
+  ggtitle("D-statistics for different combinations of trees with Uganda and Ghana as H3") +
+  xlab("D-statistic") +
+  ylab("H1 and H2") +
+  labs(color = "| Z | > 3") +
+  facet_wrap(~H3)
 ```
 
