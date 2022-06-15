@@ -24,7 +24,10 @@ hets$V3 <- substring(hets$V2, 5, 7)
 hets$V1 <- as.numeric(hets$V1)
 hets$V3 <- factor(hets$V3, levels = c(c("Rmv", "Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam"))) #order from phylogeographical history
 ggplot(hets, aes(V2, V1, fill = V3)) + 
-  geom_bar(stat="identity") +
+  geom_col() +
+  ggtitle("Estimated heterozygosity for each individual") +
+  xlab("Populations") +
+  ylab("Heterozygosity") +
   theme(axis.text.x = element_text(angle = -50, hjust = 0.1, vjust = 0, size = 10))
 
 ggplot(hets, aes(V3, V1, color = V3)) +

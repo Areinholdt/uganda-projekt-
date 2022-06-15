@@ -100,6 +100,9 @@ p2 <- filter(rohan4, !pop %in% c("Rmv","Nig","Zoo","Des")) %>%
   ylab("Estimate of Wattersons theta") +
   theme_classic()
 
+ggplot(rohan4, aes(Genome.wide_theta_outside_ROH, Genome.wide_theta_inc._ROH, color = pop))+
+  geom_point()
+
 grid.arrange(p1, p2, ncol=2)
 
 ggplot(rohan4, aes(x = factor(pop, levels = order), Avg_length_of_roh, color = pop)) +
