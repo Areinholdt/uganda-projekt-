@@ -22,7 +22,20 @@ hets[hets == "CWarxxx00206.het"] <- "CWarZoo00206"
 hets$V1 <- substring(hets$V1, 4)
 hets$V3 <- substring(hets$V2, 5, 7)
 hets$V1 <- as.numeric(hets$V1)
-hets$V3 <- factor(hets$V3, levels = c(c("Rmv", "Nig", "xxx","Des" ,"Gha", "Ken", "Uga", "Ugw", "Tan", "Zam", "Zim", "Nam"))) #order from phylogeographical history
+
+
+hets[hets == "Gha"] <- "Ghana"
+hets[hets == "Ken"] <- "Kenya"
+hets[hets == "Uga"] <- "Uganda"
+hets[hets == "Ugw"] <- "Ugandaweird"
+hets[hets == "Tan"] <- "Tanzania"
+hets[hets == "Zam"] <- "Zambia"
+hets[hets == "Zim"] <- "Zimbabwe"
+hets[hets == "Nam"] <- "Namibia"
+
+hets$V3 <- factor(hets$V3, levels = c(c("Rmv", "Nig", "xxx","Des" ,"Ghana", "Kenya", "Uganda", "Ugandaweird", "Tanzania", "Zambia", "Zimbabwe", "Namibia"))) #order from phylogeographical history
+
+
 ggplot(hets, aes(V2, V1, fill = V3)) + 
   geom_col() +
   ggtitle("Estimated heterozygosity for each individual") +
